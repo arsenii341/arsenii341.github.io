@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head><script src="/site-gateway.js?v=20261010-history-player-v1"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151515">
+  <meta name="description" content="Арсений Осипчук — графический дизайнер из Санкт-Петербурга, Россия.">
+  <title>Арсений Осипчук</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/geologica-a-32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/geologica-a-16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/geologica-a-180.png">
+  <link rel="preload" href="assets/geologica.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/victor-mono-ru-thin.ttf" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://w.soundcloud.com" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=20261010-projects-button-smaller-text">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <video id="background" autoplay muted loop playsinline preload="auto" poster="assets/poster.jpg"><source src="assets/background.mp4" type="video/mp4"></video>
+  </div>
+  <main class="home">
+    <header class="header">
+      <h1><a href="./"><span>Арсений</span> <span>Осипчук</span></a></h1>
+      <nav class="navigation" aria-label="Основная навигация">
+        <a class="projects-button" href="projects/">Проекты</a>
+        <div class="music">
+          <button class="music-toggle" aria-label="Открыть музыку" aria-expanded="false" aria-controls="music-panel">♪<span class="music-icon-notes" aria-hidden="true"><span>♪</span><span>♫</span><span>♪</span></span></button>
+          <section id="music-panel" class="music-panel" aria-label="Музыкальная ротация" hidden>
+            <div class="music-panel-heading"><h2>Музыкальная ротация</h2><button class="music-close" aria-label="Закрыть плеер">×</button></div>
+            <div class="music-selection" aria-live="polite">
+              <h3 class="music-title">Думай и богатей</h3>
+              <p class="music-artist">YASMI</p>
+            </div>
+            <div class="music-timeline">
+              <input class="music-seek" type="range" min="0" max="0" step="1000" value="0" aria-label="Позиция воспроизведения" aria-valuetext="0:00" disabled>
+              <div class="music-time"><span class="music-elapsed">0:00</span><span class="music-duration">—</span></div>
+            </div>
+            <div class="music-transport">
+              <button class="music-previous" aria-label="Предыдущий трек"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5 8 12l11 7Z"/></svg></button>
+              <button class="music-play" aria-label="Включить" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 4 12 8-12 8Z"/></svg></button>
+              <button class="music-next" aria-label="Следующий трек"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l11 7-11 7Z"/></svg></button>
+            </div>
+            <ol class="music-track-list" aria-label="Треки"></ol>
+            <a class="music-source" target="_blank" rel="noopener noreferrer" href="https://soundcloud.com/yasmi-166296910/dumai-i-bogatei">SoundCloud ↗</a>
+            <div class="music-character" aria-hidden="true" hidden>
+              <div class="music-notes"><span>♪</span><span>♫</span><span>♪</span></div>
+              <img src="assets/music-character/idle-putting-on-v2.png" alt="" width="1254" height="1254">
+            </div>
+            <div class="music-engine" aria-hidden="true"></div>
+          </section>
+        </div>
+      </nav>
+    </header>
+    <footer class="footer">
+      <p class="intro">Мультидисциплинарный графический дизайнер.<br> Санкт-Петербург, Россия.</p>
+      <div class="contacts">
+        <a href="https://drive.google.com/file/d/1gx_cNU5LL6tCmtIoaoxXUwQyFbfhgTPP/view?usp=sharing" target="_blank" rel="noopener noreferrer">CV</a>
+        <a href="https://t.me/Arsenii340" target="_blank" rel="noopener noreferrer">Tg</a>
+        <span>2026</span>
+      </div>
+    </footer>
+  </main>
+  <script src="script.js?v=20261009-ru"></script>
+</body>
+</html>

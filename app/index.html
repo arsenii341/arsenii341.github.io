@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080808">
+  <title>Арсений Осипчук</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/geologica-a-32.png">
+  <link rel="preconnect" href="https://w.soundcloud.com" crossorigin>
+  <link rel="stylesheet" href="/styles.css?v=20261010-projects-button-smaller-text">
+  <link rel="stylesheet" href="/app/shell.css?v=20261010-mobile-character">
+</head>
+<body>
+  <div id="site-loader" class="site-loader" role="status" aria-label="Загрузка портфолио">
+    <div class="loader-content">
+      <span class="loader-percent" aria-hidden="true">0%</span>
+      <span class="loader-figure" aria-hidden="true">
+        <img class="loader-outline" src="/assets/character-buzz/neutral.png" alt="" width="1024" height="1536">
+        <img class="loader-fill" src="/assets/character-buzz/neutral.png" alt="" width="1024" height="1536">
+      </span>
+    </div>
+  </div>
+  <noscript><style>#site-loader{display:none}</style></noscript>
+  <iframe id="site-view" title="Страница портфолио"></iframe>
+  <aside class="music" aria-label="Управление музыкой">
+    <button class="music-toggle" type="button" aria-label="Открыть музыку" aria-expanded="false" aria-controls="music-panel" hidden></button>
+    <div class="mini-player" aria-label="Мини-плеер" hidden>
+      <div class="mini-heading"><span class="mini-label">Музыкальная ротация</span><button class="mini-close" type="button" aria-label="Закрыть мини-плеер">×</button></div>
+      <div class="mini-main">
+        <div class="mini-track-info"><strong class="mini-title">Думай и богатей</strong><span class="mini-artist">YASMI</span></div>
+        <div class="mini-controls">
+          <button class="mini-previous" type="button" aria-label="Предыдущий трек"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5 8 12l11 7Z"/></svg></button>
+          <button class="music-quick-play" type="button" aria-label="Включить музыку" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4 20 12 8 20Z"/></svg></button>
+          <button class="mini-next" type="button" aria-label="Следующий трек"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l11 7-11 7Z"/></svg></button>
+        </div>
+      </div>
+      <div class="mini-timeline">
+        <input class="mini-seek" type="range" min="0" max="0" step="1000" value="0" aria-label="Позиция в мини-плеере" disabled>
+        <span class="mini-elapsed">0:00</span><span class="mini-duration">—</span>
+      </div>
+    </div>
+    <button class="mini-reopen" type="button" aria-label="Открыть мини-плеер" hidden>♪<span class="music-icon-notes" aria-hidden="true"><span>♪</span><span>♫</span><span>♪</span></span></button>
+    <section id="music-panel" class="music-panel" aria-label="Музыкальная ротация" hidden>
+      <div class="music-panel-heading"><h2>Музыкальная ротация</h2><button class="music-close" type="button" aria-label="Закрыть плеер">×</button></div>
+      <div class="music-selection" aria-live="polite">
+        <h3 class="music-title">Думай и богатей</h3>
+        <p class="music-artist">YASMI</p>
+      </div>
+      <div class="music-timeline">
+        <input class="music-seek" type="range" min="0" max="0" step="1000" value="0" aria-label="Позиция воспроизведения" aria-valuetext="0:00" disabled>
+        <div class="music-time"><span class="music-elapsed">0:00</span><span class="music-duration">—</span></div>
+      </div>
+      <div class="music-transport">
+        <button class="music-previous" type="button" aria-label="Предыдущий трек"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5 8 12l11 7Z"/></svg></button>
+        <button class="music-play" type="button" aria-label="Включить" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 4 12 8-12 8Z"/></svg></button>
+        <button class="music-next" type="button" aria-label="Следующий трек"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l11 7-11 7Z"/></svg></button>
+      </div>
+      <ol class="music-track-list" aria-label="Треки"></ol>
+      <a class="music-source" target="_blank" rel="noopener noreferrer" href="https://soundcloud.com/yasmi-166296910/dumai-i-bogatei">SoundCloud ↗</a>
+      <div class="music-character" aria-hidden="true" hidden>
+        <div class="music-notes"><span>♪</span><span>♫</span><span>♪</span></div>
+        <img src="/assets/music-character/idle-putting-on-v2.png" alt="" width="1254" height="1254">
+      </div>
+    </section>
+    <div class="music-engine" aria-hidden="true"></div>
+  </aside>
+  <script src="/app/loader.js?v=20261006-video-retry-v1"></script>
+  <script src="/app/preload.js?v=20261010-copy"></script>
+  <script src="/app/shell.js?v=20261010-outside-dismiss"></script>
+  <script src="/player.js?v=20261015-rotation"></script>
+</body>
+</html>

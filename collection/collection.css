@@ -1,0 +1,170 @@
+@font-face{font-family:Geologica;src:url('../assets/geologica.ttf') format('truetype');font-weight:100 900;font-display:swap}
+@font-face{font-family:Victor;src:url('../assets/victor-mono-ru-thin.ttf') format('truetype');font-weight:100 400;font-display:swap}
+:root{--unit:calc(100vw / 1024)}
+*{box-sizing:border-box}body{margin:0;background:#080808;color:#f4f4ef;font-family:Victor,monospace;font-size:14px;font-weight:100;overflow:hidden}button,select{font:inherit;color:inherit}button,a,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer;border:0;background:none}a{color:inherit;text-decoration:none}button:hover,a:hover,select:hover{color:#929292;text-decoration:none}button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid #929292;outline-offset:5px}[hidden]{display:none!important}.topbar{position:fixed;top:calc(22 * var(--unit));left:calc(25 * var(--unit));z-index:10}.name{font-family:Geologica,sans-serif;font-size:24px;font-weight:600;letter-spacing:-.7px}.back{font-family:Victor,monospace;font-weight:400;font-size:calc(16 * var(--unit));line-height:calc(22 * var(--unit))}.page-title{position:absolute;top:calc(66 * var(--unit));left:calc(20 * var(--unit));z-index:2;pointer-events:none}.page-title h1{font-family:Geologica,sans-serif;font-weight:400;font-size:calc(50 * var(--unit));line-height:1;letter-spacing:0;margin:0}.page-title p{font-family:Victor,monospace;font-size:16px;font-weight:400;letter-spacing:0;line-height:1.5;max-width:260px;margin:32px 0 0}#stage{position:absolute;inset:0;touch-action:none;cursor:grab}#stage:active{cursor:grabbing}canvas{display:block;width:100%;height:100%}#loading{position:absolute;inset:48% 0 auto;text-align:center;color:#bbb}.bottom-bar{position:fixed;bottom:24px;left:28px;right:28px;display:flex;justify-content:space-between;align-items:center;gap:20px;z-index:5;color:#b8b8b3;font-size:12px}.controls{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;gap:25px;align-items:center;white-space:nowrap}.controls button{padding:8px 0}.controls select{border:0;border-bottom:1px solid #444;background:#080808;padding:6px;max-width:165px;font-size:12px}.count{white-space:nowrap}#hover-label{position:fixed;z-index:9;background:#f5f5ec;color:#151515;padding:7px 11px;font-size:12px;pointer-events:none;opacity:0}.viewing .page-title,.viewing .bottom-bar,.viewing .topbar{opacity:.18;pointer-events:none}.viewing .bottom-bar .controls{visibility:hidden}#detail{position:fixed;inset:0;z-index:8;pointer-events:none}#detail button,#detail a{pointer-events:auto}.artwork{position:absolute;top:11vh;bottom:13vh;width:43vw;left:26%;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}.artwork img,.artwork video{display:block;max-width:100%;max-height:calc(100% - 48px);object-fit:contain;box-shadow:0 12px 60px #0008;pointer-events:auto}.work-caption{display:flex;justify-content:space-between;width:100%;align-items:baseline;gap:20px;font-size:12px;color:#aaa}.work-caption h2{font-size:14px;font-weight:100;margin:0;color:#eee}.speech{position:absolute;left:73%;top:14%;width:min(23vw,310px);background:#eff1e7;color:#171c15;border-radius:3px;padding:20px 22px;font-family:Geologica,sans-serif;font-size:16px;line-height:1.5;box-shadow:0 10px 60px #0003;pointer-events:auto}.speech:after{content:'';position:absolute;bottom:-18px;left:28px;border-style:solid;border-width:19px 20px 0 0;border-color:#eff1e7 transparent transparent transparent}.speaker{font:11px Victor,monospace;text-transform:uppercase;letter-spacing:.08em;color:#4e6142}.speech p{min-height:72px;margin:10px 0 16px}#close{position:absolute;top:25px;right:28px;background:#080808;padding:6px;font-size:14px}#close span{font:24px sans-serif;margin-left:10px}.work-navigation{position:absolute;bottom:25px;left:26%;width:43vw;display:flex;justify-content:space-between}.work-navigation button{font-size:13px;padding:10px 0}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}#fallback{position:absolute;inset:200px 28px 90px;overflow:auto;grid-template-columns:repeat(4,1fr);gap:22px;display:grid}#fallback button img{width:100%;height:220px;object-fit:contain}#fallback button{font-size:12px}.no-webgl .page-title{top:85px}.no-webgl .speech:after{display:none}
+@media(max-width:700px){.topbar{top:20px;left:20px;right:20px}.name{font-size:19px}.page-title{top:85px;left:20px}.page-title h1{font-size:32px}.page-title p{display:none}.bottom-bar{left:20px;right:20px;bottom:18px;flex-wrap:wrap;gap:9px}.bottom-bar #instruction{width:100%;font-size:11px}.controls{gap:15px}.count{margin-left:auto;font-size:10px}.controls button,.controls select{font-size:11px}.artwork{top:75px;left:8%;width:84%;bottom:auto;height:52dvh;gap:10px}.artwork img,.artwork video{max-height:calc(100% - 36px)}.work-caption h2{font-size:12px}.work-caption{font-size:11px}.speech{top:auto;left:36%;bottom:83px;width:59%;padding:14px 16px;font-size:13px;line-height:1.4}.speech p{min-height:55px;margin:8px 0 10px}.speech:after{bottom:25px;left:-16px;border-width:0 17px 16px 0;border-color:transparent #eff1e7 transparent transparent}.speaker{font-size:10px}.work-navigation{left:20px;right:20px;width:auto;bottom:19px}#close{top:18px;right:17px}.work-caption{gap:10px}#fallback{grid-template-columns:repeat(2,1fr)}#fallback button img{height:170px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+.speech-connector{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;fill:#eff1e7}
+@media(min-width:700px){.speech:after{display:none}}
+@media(max-width:699px){.speech-connector{display:none}}
+.no-webgl .speech-connector{display:none}
+
+/* A single shadow for the bubble and its tail keeps their shared fill seamless. */
+.speech-group{--speech-color:#eff1e7;position:absolute;inset:0;pointer-events:none;z-index:2;filter:drop-shadow(0 10px 24px #0003)}
+.speech{background:var(--speech-color);box-shadow:none}
+.speech-connector{fill:var(--speech-color)}
+#detail{overflow:hidden}
+.artwork-orbit{position:absolute;inset:0;z-index:0;perspective:300vw;perspective-origin:47.5% 48%;pointer-events:none}
+.artwork{backface-visibility:hidden;transform-style:preserve-3d}
+.artwork.departing{pointer-events:none}
+.artwork.departing img,.artwork.departing video{pointer-events:none}
+#close,.work-navigation{z-index:3}
+
+#guide-image{position:absolute;z-index:1;display:block;object-fit:contain;transform:translate(-50%,-100%);pointer-events:none}
+.no-webgl #guide-image{display:none}
+
+.speech p{min-height:0;margin:10px 0 0}
+
+/* Keep the label outside the rotating artwork layer. */
+.work-caption{position:absolute;left:26%;bottom:calc(13vh + 20px);width:43vw;z-index:1}
+.artwork:after{content:'';display:block;flex:0 0 18px;width:100%}
+
+/* Center every artwork in the same viewing area; keep the caption fixed below it. */
+@media(min-width:701px){
+ .artwork{top:clamp(90px,14vh,230px);bottom:max(110px,17vh);left:calc(47.5% - min(19vw,290px,23.5vh));width:min(38vw,580px,47vh);justify-content:center;gap:0}
+ .artwork img,.artwork video{width:100%;height:auto;max-height:100%}
+ .artwork:after{display:none}
+ .work-navigation{left:calc(47.5% - min(19vw,290px,23.5vh));width:min(38vw,580px,47vh)}
+ .work-caption{left:calc(47.5% - min(19vw,290px,23.5vh));width:min(38vw,580px,47vh);bottom:calc(max(110px,17vh) - 35px);top:auto}
+}
+.viewing #fallback{visibility:hidden}
+
+/* Keep the original left / centered control / right layout, with the projects
+   footer's type, color, and edge spacing. */
+@media(min-width:701px){
+ .bottom-bar{left:clamp(20px,1.953125vw,48px);right:clamp(20px,1.953125vw,48px);bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:20px;color:#9b9b95;font:14px Victor,monospace}
+ .bottom-bar .controls{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+ .bottom-bar .controls button{padding:0}
+}
+
+/* The phone detail is a single reading column. Its image, caption and
+   commentary occupy separate rows; the character sits beside the bubble. */
+@media(max-width:700px){
+ .page-title p{display:block;max-width:none;margin:14px 0 0;font-size:13px;line-height:1.4}
+ .bottom-bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;column-gap:8px;row-gap:8px}
+ .bottom-bar #instruction{grid-column:1/-1;width:auto;line-height:1.3}
+ .bottom-bar .controls{position:static;grid-column:2;grid-row:2;transform:none;justify-self:center}
+ .bottom-bar .count{grid-column:3;grid-row:2;margin:0;justify-self:end}
+ body.viewing .topbar,body.viewing .page-title,body.viewing .bottom-bar{visibility:hidden}
+ #detail{display:flex;flex-direction:column;gap:10px;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;padding:74px 18px 22px;background:#080808}
+ #close{position:fixed;top:16px;right:18px;padding:6px 0;z-index:5}
+ .artwork-orbit{position:relative;inset:auto;flex:0 0 auto;width:100%;height:clamp(270px,48dvh,480px);perspective:none}
+ .artwork{position:absolute;inset:0;top:0;left:0;bottom:auto;width:100%;height:100%;gap:0;margin:0;justify-content:center}
+ .artwork img,.artwork video{width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain}
+ .artwork:after{display:none}
+ .work-caption{position:relative;top:auto;left:auto;bottom:auto;width:100%;min-height:22px;align-items:start;gap:12px;font-size:11px}
+ .work-caption h2{font-size:12px;line-height:1.3}
+ .work-caption span{flex:none}
+ .speech-group{position:relative;inset:auto;flex:0 0 auto;width:100%;margin-top:8px;filter:none}
+ .speech{position:relative;top:auto;left:auto;bottom:auto;width:calc(100% - 110px);min-width:190px;padding:12px 14px;font-size:12px;line-height:1.4;filter:drop-shadow(0 8px 16px #0004)}
+ .speech p{margin:7px 0 0;min-height:0}
+ .speech:after{display:block;top:36px;right:-18px;bottom:auto;left:auto;width:19px;height:19px;border:0;background:var(--speech-color);clip-path:polygon(0 0,100% 70%,0 100%)}
+ #guide-image{position:absolute;top:calc(124px + clamp(270px,48dvh,480px))!important;left:auto!important;right:4px;bottom:auto;width:clamp(105px,29vw,138px)!important;height:auto!important;transform:none;z-index:3}
+ .work-navigation{position:relative;left:auto;right:auto;bottom:auto;flex:0 0 auto;width:100%;margin-top:auto;padding-top:14px;z-index:4}
+ .work-navigation button{padding:10px 0}
+}
+
+@media(max-width:700px){
+ .back{display:none}
+ .page-title{top:24px}
+ .bottom-bar{grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;bottom:max(18px,env(safe-area-inset-bottom))}
+ .bottom-bar #instruction{grid-column:1;grid-row:1;font-size:10px}
+ #instruction span{display:block}
+ .bottom-bar .controls{grid-column:2;grid-row:1}
+ .bottom-bar .controls button{max-width:70px;white-space:normal;line-height:1.3;text-align:center;padding:0}
+ .bottom-bar .count{grid-column:3;grid-row:1;font-size:10px}
+ #detail{height:100dvh;display:grid;grid-template-columns:42% 58%;grid-template-rows:minmax(0,1fr) 26px minmax(210px,34dvh);gap:8px 0;padding:64px 18px max(18px,env(safe-area-inset-bottom));overflow:hidden;pointer-events:auto;touch-action:pan-y pinch-zoom}
+ .artwork-orbit{grid-column:1/-1;grid-row:1;height:100%;min-height:0;width:100%;touch-action:pan-y pinch-zoom}
+ .artwork img,.artwork video{max-height:100%;max-width:100%}
+ .work-caption{grid-column:1/-1;grid-row:2;min-height:0;align-items:center}
+ .speech-group{grid-column:1/-1;grid-row:3;position:relative;inset:auto;height:100%;margin:0;filter:drop-shadow(0 8px 16px #0004)}
+ .speech{position:absolute;top:0;right:0;left:auto;bottom:auto;width:58%;min-width:0;padding:11px 12px;font-size:12px;line-height:1.35;filter:none}
+ .speech:after{display:none}
+ .speech-connector{display:block}
+ #guide-image{top:auto!important;bottom:max(18px,env(safe-area-inset-bottom));left:10px!important;right:auto;width:min(42vw,calc(34dvh * .66))!important;height:auto!important;transform:none;z-index:3}
+ .work-navigation{display:none}
+}
+
+#instruction i{font-style:normal}
+@media(max-width:700px){#instruction i{display:none}}
+
+/* One shared mobile width for every poster and its stationary caption. */
+@media(max-width:700px){
+ #detail{--mobile-artwork-height:calc(100dvh - 64px - 26px - max(210px,34dvh) - 16px - max(18px,env(safe-area-inset-bottom)));--mobile-work-width:min(calc(100vw - 36px),calc(var(--mobile-artwork-height) * .7066))}
+ .artwork{left:calc((100% - var(--mobile-work-width)) / 2);right:auto;width:var(--mobile-work-width)}
+ .artwork img,.artwork video{width:100%;height:auto;max-height:100%;max-width:100%}
+ .work-caption{width:var(--mobile-work-width);justify-self:center;gap:10px}
+ .work-caption h2{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
+
+@media(max-width:700px){
+ .artwork-orbit{perspective:1200px;perspective-origin:50% 50%;overflow:visible}
+}
+
+/* Empty space dismisses the viewer; media keeps its original aspect ratio. */
+#detail{pointer-events:auto}
+.artwork img,.artwork video{transform:scale(var(--media-scale,1));transform-origin:center}
+#guide-image{pointer-events:auto}
+
+/* Keep the introduction on one line and match the shirt rotation control. */
+.page-title p{max-width:none;white-space:nowrap}
+.bottom-bar .controls #spin{width:42px;min-width:42px;height:42px;padding:0;display:grid;place-items:center}
+.bottom-bar #spin svg{width:20px;height:20px;fill:currentColor}
+@media(max-width:700px){.page-title p{font-size:min(13px,3.2vw)}.bottom-bar .controls #spin{width:34px;min-width:34px;height:42px}}
+
+.page-title p.has-work-overlap{white-space:normal;max-width:260px}
+@media(max-width:700px){.page-title p.has-work-overlap{max-width:245px}}
+
+/* Collection controls stay plain; only the back link has the outlined treatment. */
+.bottom-bar .controls #spin,.bottom-bar .controls #spin:hover{border:0;background:none;box-shadow:none}
+.topbar .back{display:inline-flex;align-items:center;justify-content:center;height:42px;min-height:42px;font-size:clamp(14px,calc(14 * var(--unit)),18px);line-height:1.2;border:1px solid #555;background:#101010;box-shadow:0 8px 24px #0007;color:#f5f5f5;padding:0 14px}
+.topbar .back:hover{color:#929292;text-decoration:none}
+
+.speech #speech-text{margin:0}
+
+/* One fixed caption row: previous, title, count, next. */
+.work-caption{display:grid;grid-template-columns:24px minmax(0,1fr) auto 24px;align-items:center;gap:12px}
+.work-caption h2{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.work-caption button{display:grid;place-items:center;width:24px;height:32px;padding:0;font-size:20px;line-height:1;border:0;background:none;box-shadow:none}
+.work-caption button:hover{background:none;color:#929292}
+.work-caption #work-number{white-space:nowrap}
+@media(max-width:700px){.work-caption{grid-template-columns:20px minmax(0,1fr) auto 20px;gap:7px}.work-caption button{width:20px;font-size:18px}}
+
+/* Align the desktop navigation centre with the 42px music launcher at bottom 56px. */
+@media(min-width:701px){.work-caption{bottom:61px;height:32px}}
+
+@media(max-width:700px){
+ #previous-work,#next-work,#close{display:none}
+ .work-caption{grid-template-columns:minmax(0,1fr) auto}
+}
+
+@media(max-width:700px){.topbar .back{display:none}}
+
+/* Rotation uses the shared outlined play/pause button again. */
+.bottom-bar .controls #spin{border:1px solid #555;background:#101010;box-shadow:0 8px 24px #0007;color:#f5f5f5}
+.bottom-bar .controls #spin:hover{background:#101010;color:#929292}
+
+/* A single mobile rotation control shares the music launcher's baseline. */
+@media(max-width:700px){
+ .bottom-bar #instruction,.bottom-bar .count{display:none}
+ .bottom-bar{bottom:54px;height:42px;display:flex;align-items:center;justify-content:center}
+ .bottom-bar .controls{position:static;transform:none;margin:0}
+ .bottom-bar .controls #spin{width:42px;min-width:42px;height:42px}
+}
+
+/* Match the outlined navigation controls used across projects. */
+#close{position:fixed;top:56px;right:24px;display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;min-height:42px;padding:0;border:1px solid #555;background:#101010;box-shadow:0 8px 24px #0007;color:#f5f5f5}
+#close span{margin-left:0;font:100 28px/1 Geologica,sans-serif}
+#close:hover{color:#929292}
+@media(max-width:700px){#close{display:none}}

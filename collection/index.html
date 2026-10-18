@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head><script src="/site-gateway.js?v=20261010-history-player-v1"></script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080808"><meta name="description" content="Коллекция плакатов и графических экспериментов Арсения Осипчука.">
+<title>Рандомная коллекция — Арсений Осипчук</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/geologica-a-32.png"><link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/geologica-a-16.png"><link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/geologica-a-180.png">
+<link rel="stylesheet" href="collection.css?v=20261010-controls-42px">
+<link rel="stylesheet" href="/control-buttons.css?v=20261010-plain-controls"></head>
+<body>
+<header class="topbar"><a href="../projects/" class="back">НАЗАД</a></header>
+<main>
+<div class="page-title"><h1>Рандомная<br>коллекция</h1><p>Плакаты и графические эксперименты</p></div>
+<div id="stage" aria-label="Интерактивная сфера с работами"><p id="loading" role="status">Загрузка коллекции…</p></div>
+<div id="fallback" hidden></div>
+<div id="hover-label" aria-hidden="true"></div>
+<section id="detail" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="work-title" hidden>
+<button id="close" aria-label="Закрыть работу"><span aria-hidden="true">×</span></button>
+<div class="artwork-orbit"><figure class="artwork" aria-labelledby="work-title"><img id="work-image" alt=""><video id="work-video" muted autoplay loop playsinline disablepictureinpicture disableremoteplayback preload="metadata" hidden></video></figure></div>
+<nav class="work-caption" aria-label="Просмотр работ"><button id="previous-work" aria-label="Предыдущая работа">←</button><h2 id="work-title"></h2><span id="work-number"></span><button id="next-work" aria-label="Следующая работа">→</button></nav>
+<img id="guide-image" src="../assets/character-buzz/neutral.png" alt="" aria-hidden="true">
+<div class="speech-group">
+<svg class="speech-connector" aria-hidden="true"><polygon id="speech-tail"/></svg>
+<aside class="speech" aria-label="Комментарий Арсения"><p id="speech-text" aria-live="polite"></p></aside>
+</div>
+
+</section>
+</main>
+<footer class="bottom-bar"><span id="instruction"><span>Вращайте сферу</span><span><i aria-hidden="true"> · </i>Откройте работу</span></span><div class="controls"><button id="spin" aria-pressed="false" aria-label="Остановить вращение"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM14 5h4v14h-4z"/></svg></button></div><span class="count">2026</span></footer>
+<script type="module" src="collection.js?v=20261010-copy-final"></script>
+</body></html>

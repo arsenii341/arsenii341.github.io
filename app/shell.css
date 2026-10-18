@@ -1,0 +1,103 @@
+html,body{width:100%;height:100%;overflow:hidden;background:#080808}
+#site-view{position:fixed;inset:0;width:100%;height:100%;border:0;background:#080808}
+.music{position:fixed;z-index:100;inset:0;display:block;margin:0;pointer-events:none;color:#f5f5f5}
+.music>button,.music-panel,.mini-player{pointer-events:auto}
+.music>.music-toggle[hidden]{display:none}
+.music-panel{position:fixed;top:160px;right:var(--edge);transform:none;width:min(400px,calc(100vw - 2 * var(--edge)));max-height:calc(100dvh - 180px);overflow:hidden;box-shadow:0 8px 28px #0008}
+.music-panel:not([hidden]){max-height:calc(100dvh - 180px);overflow:hidden}
+.mini-player,.mini-reopen{position:fixed;right:24px;bottom:56px;color:#f5f5f5;background:#101010;border:1px solid #555;box-shadow:0 8px 24px #0007;font:100 12px/1.35 'Victor Mono',monospace}
+.mini-player{width:320px;padding:12px 14px 10px}
+.mini-player[hidden],.mini-reopen[hidden]{display:none}
+.mini-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px}
+.mini-label{text-transform:uppercase;letter-spacing:.08em;color:#aaa}
+.mini-player button,.mini-reopen{cursor:pointer;color:inherit}
+.mini-close{width:20px;height:20px;border:0;background:none;color:#aaa!important;font:100 21px/1 Geologica,sans-serif}
+.mini-close:hover{color:#fff!important}
+.mini-main{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mini-track-info{display:flex;flex-direction:column;min-width:0;flex:1}
+.mini-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 16px/1.15 Geologica,sans-serif}
+.mini-artist{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#aaa}
+.mini-controls{display:flex;align-items:center;gap:3px;flex:none}
+.mini-controls button{display:grid;place-items:center;width:28px;height:28px;padding:0;border:0;background:none;font:400 13px/1 Geologica,sans-serif}
+.mini-controls button:hover{color:#929292}
+.mini-controls .mini-previous svg,.mini-controls .mini-next svg{display:block;width:18px;height:18px;fill:currentColor;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+.mini-controls .music-quick-play{width:32px;height:32px;border-radius:50%;background:#e6e6e6;color:#101010;font-size:11px}
+.mini-controls .music-quick-play svg{display:block;width:16px;height:16px;fill:currentColor}
+.mini-controls .music-quick-play:hover{background:#929292;color:#101010}
+.mini-timeline{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:8px;color:#aaa;font-size:10px;font-variant-numeric:tabular-nums;margin-top:8px}
+.mini-seek{--played:0%;width:100%;height:14px;margin:0;appearance:none;-webkit-appearance:none;background:transparent;cursor:pointer}
+.mini-seek::-webkit-slider-runnable-track{height:2px;background:linear-gradient(to right,#eee var(--played),#555 var(--played))}
+.mini-seek::-moz-range-track{height:2px;background:#555}
+.mini-seek::-moz-range-progress{height:2px;background:#eee}
+.mini-seek::-webkit-slider-thumb{-webkit-appearance:none;width:8px;height:8px;margin-top:-3px;border:0;border-radius:50%;background:#eee}
+.mini-seek::-moz-range-thumb{width:8px;height:8px;border:0;border-radius:50%;background:#eee}
+.mini-seek:disabled{opacity:.5;cursor:default}
+.mini-reopen{width:42px;height:42px;padding:0;font:500 22px/1 Geologica,sans-serif}
+.mini-reopen:hover{color:#929292}
+.is-home .mini-reopen{display:none}
+.is-home .mini-player{display:none}
+@media(max-width:767px){
+  .mini-player{right:12px;bottom:64px;width:min(320px,calc(100vw - 24px))}
+  .mini-reopen{right:12px;bottom:54px}
+  .is-collection .mini-player{bottom:64px}
+  .is-collection .mini-reopen{bottom:54px}
+  .music-panel,.music-panel:not([hidden]){right:var(--edge);top:calc(55.625vw + 60px);max-height:calc(100dvh - 55.625vw - 72px)}
+}
+
+@media(max-width:767px){
+ .music-panel,.music-panel:not([hidden]){top:50%!important;right:12px!important;transform:translateY(-50%);width:calc(100vw - 24px);max-height:calc(100dvh - 24px);overflow:hidden;padding:14px}
+ .music-panel-heading{margin-bottom:12px}
+ .music-panel h2{font-size:23px}
+ .music-selection{min-height:52px}
+ .music-title{font-size:20px;min-height:25px}
+ .music-timeline{margin-top:6px}
+ .music-track{padding:5px 4px;gap:10px;font-size:13px;line-height:1.3}
+ .music-track-artist{font-size:11px}
+ .music-track-list li:nth-last-child(-n+3) .music-track{padding-right:100px}
+ .music-playback-meta{margin-top:8px}
+ .music-note,.music-source{font-size:10px}
+ .collection-detail .mini-reopen{place-items:center;top:auto;right:18px;bottom:54px}
+ .collection-detail .music.is-open .mini-reopen{display:none!important}
+}
+@media(max-width:767px) and (max-height:600px){
+ .music-panel{padding:10px}
+ .music-panel-heading{margin-bottom:5px}
+ .music-selection{min-height:40px}
+ .music-title{font-size:18px}
+ .music-transport{padding:2px 0}
+ .music-track{padding-top:3px;padding-bottom:3px}
+}
+
+@media(max-width:700px){.collection-detail .mini-reopen .music-icon-notes{inset:-23px 0 auto}}
+
+@media(max-width:767px){.mini-reopen,.is-collection .mini-reopen{top:auto;right:18px;bottom:54px}}
+
+/* Anchor the home player below its trigger on phones too. */
+@media(max-width:767px){
+ .is-home .music-panel,.is-home .music-panel:not([hidden]){top:var(--home-music-top,160px)!important;right:var(--home-music-right,12px)!important;transform:none;max-height:calc(100dvh - var(--home-music-top,160px) - 12px)}
+}
+
+@media(max-width:767px) and (max-height:600px){
+ .music-panel-heading{margin-bottom:2px}
+ .music-transport{padding:0}
+ .music-track{padding-top:1px;padding-bottom:1px}
+ .music-playback-meta{margin-top:4px}
+}
+
+/* Initial loading screen, shared by all entry routes. */
+.site-loader{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:#080808;color:#f4f4ef;--loader-progress:0%}
+.site-loader[hidden]{display:none}
+.loader-content{display:flex;flex-direction:column;align-items:center;gap:18px}
+.loader-percent{font:100 20px/1.2 'Victor Mono',monospace;letter-spacing:.02em;font-variant-numeric:tabular-nums;min-width:5ch;text-align:center}
+.loader-figure{position:relative;display:block;width:calc(min(230.4px,32.4dvh) * 2 / 3);height:min(230.4px,32.4dvh)}
+.loader-figure img{display:block;width:100%;height:100%;object-fit:contain}
+.loader-outline{filter:grayscale(1);opacity:.18}
+.loader-fill{position:absolute;inset:0;clip-path:inset(calc(100% - var(--loader-progress)) 0 0);transition:clip-path .22s linear}
+@media(max-width:700px){.loader-figure{height:min(201.6px,30.24dvh);width:calc(min(201.6px,30.24dvh) * 2 / 3)}.loader-percent{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.loader-fill{transition:none}}
+
+/* Give the character more presence in the phone player. */
+@media(max-width:767px){
+ .music-character{width:150px;height:150px;right:4px;bottom:-24px}
+ .music-track-list li:nth-last-child(-n+3) .music-track{padding-right:132px}
+}

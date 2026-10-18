@@ -1,0 +1,102 @@
+@font-face{font-family:Geologica;src:url('../assets/geologica.ttf') format('truetype');font-weight:100 900;font-display:swap}
+@font-face{font-family:Victor;src:url('../assets/victor-mono-ru-thin.ttf') format('truetype');font-weight:100 400;font-display:swap}
+*{box-sizing:border-box}
+:root{--unit:calc(100vw / 1024)}
+body{margin:0;background:#080808;color:#f4f4ef;font-family:Victor,monospace;font-weight:400}
+a{color:inherit;text-decoration:none}a:hover{color:#929292;text-decoration:none}a:focus-visible{outline:2px solid #929292;outline-offset:5px}
+.back{display:inline-flex;align-items:center;justify-content:center;height:42px;min-height:42px;padding:0 14px;border:1px solid #555;background:#101010;box-shadow:0 8px 24px #0007;color:#f5f5f5;position:fixed;z-index:2;left:calc(25 * var(--unit));top:calc(22 * var(--unit));font-size:clamp(14px,calc(14 * var(--unit)),18px);line-height:1.2}
+.project-info{position:fixed;left:calc(20 * var(--unit));top:calc(66 * var(--unit));width:calc(342 * var(--unit));max-height:calc(100dvh - 80 * var(--unit));overflow:auto}
+h1{font-family:Geologica,sans-serif;font-size:calc(50 * var(--unit));font-weight:400;line-height:1;letter-spacing:0;margin:0 0 calc(15 * var(--unit))}
+h2,dt{font-size:calc(10 * var(--unit));line-height:calc(14 * var(--unit));font-weight:400;margin:0}
+.description{font-size:calc(12 * var(--unit));line-height:calc(14 * var(--unit));margin:calc(8 * var(--unit)) 0 calc(20 * var(--unit))}
+.meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0}
+dd{font-size:calc(12 * var(--unit));line-height:calc(14 * var(--unit));margin:calc(8 * var(--unit)) 0 0}
+.gallery{margin:calc(66 * var(--unit)) calc(20 * var(--unit)) calc(20 * var(--unit)) calc(517 * var(--unit));display:grid;grid-template-columns:1fr 1fr;gap:calc(10 * var(--unit))}
+figure{margin:0;min-width:0;aspect-ratio:239 / 272;overflow:hidden}.wide{grid-column:1/-1;aspect-ratio:487 / 272}
+
+img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+
+/* Readable desktop information hierarchy; the image column keeps its original grid. */
+.project-info{width:min(40vw,440px);padding-right:12px}
+h1{margin-bottom:32px}
+h2,dt{font-size:12px;line-height:1.4;letter-spacing:.04em;color:#aaa}
+.description{margin:0;font-size:16px;line-height:1.5}
+.description h2{margin-bottom:12px}
+.description p{font-family:Victor,monospace;font-weight:400;margin:0 0 16px;letter-spacing:0}
+.description p:last-child{margin-bottom:0}
+.meta{gap:16px;margin-top:32px;padding-top:20px;border-top:1px solid #363636}
+dd{font-family:Victor,monospace;font-size:14px;font-weight:400;line-height:1.5;margin-top:8px}
+
+/* Project media keep the original sequence and proportions. */
+figure{aspect-ratio:var(--ratio,239 / 330)}
+figure.wide{aspect-ratio:var(--ratio,487 / 272)}
+video{display:block;width:100%;height:100%;object-fit:contain;background:#080808}
+.carousel{grid-column:1/-1;min-width:0;margin:0}
+.carousel .slides{position:relative;aspect-ratio:var(--ratio,1);overflow:hidden}
+.carousel .slide{position:absolute;inset:0;margin:0;aspect-ratio:auto}
+.carousel .slide[hidden]{display:none}
+.carousel img{object-fit:contain}
+.carousel-controls{display:flex;align-items:center;justify-content:space-between;padding:12px 0 4px;color:#aaa;font-size:12px}
+.carousel-controls button{font:inherit;font-size:20px;line-height:1;border:0;background:none;color:#f4f4ef;cursor:pointer;padding:6px 12px}
+.carousel-controls button:hover{color:#929292;background:none}
+.carousel-controls button:focus-visible{outline:2px solid #929292;outline-offset:2px}
+.signature{grid-column:1/-1;justify-self:end;width:calc(114 * var(--unit));aspect-ratio:1400 / 504;margin-top:16px}
+.signature img{object-fit:contain}
+
+.meta > div:last-child dd{white-space:nowrap}
+
+/* Keep the T-shirt carousel, including its controls, within one viewport. */
+.t-shirts-page{height:100dvh;overflow:hidden}
+.t-shirts-page .gallery{position:absolute;top:calc(66 * var(--unit));right:calc(20 * var(--unit));bottom:calc(20 * var(--unit));left:calc(517 * var(--unit));margin:0;display:flex;align-items:center;justify-content:center}
+.t-shirts-page .carousel{width:min(100%,calc(100dvh - 86 * var(--unit) - 56px))}
+
+/* On phones, follow the original project's reading order: information first,
+   then the artwork at the full available width. */
+@media(max-width:700px){
+ .back{position:relative;top:auto;left:auto;display:inline-block;margin:20px 20px 22px;font-size:14px;line-height:1.3}
+ .project-info{position:static;width:auto;max-height:none;overflow:visible;margin:0 20px 28px;padding:0}
+ h1{font-size:clamp(38px,10.5vw,48px);line-height:1.03;margin:0 0 28px}
+ h2,dt{font-size:11px;line-height:1.4}
+ .description{font-size:15px;line-height:1.48}
+ .description h2{margin-bottom:10px}
+ .description p{margin-bottom:14px}
+ .meta{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) minmax(0,.8fr);gap:12px;margin-top:26px;padding-top:16px}
+ dd{font-size:13px;line-height:1.4;white-space:normal}
+ .meta > div:last-child dd{white-space:normal}
+ .gallery{margin:0 20px 28px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+ .gallery figure,.gallery figure.wide{grid-column:1;aspect-ratio:auto;overflow:visible}
+ .gallery figure img{width:100%;height:auto;object-fit:contain}
+ .gallery figure video{width:100%;height:auto;aspect-ratio:var(--ratio,16 / 9)}
+ .gallery .carousel{grid-column:1;width:100%}
+ .carousel .slides{aspect-ratio:var(--ratio,1)}
+ .carousel .slide{position:absolute;inset:0;overflow:hidden}
+ .carousel .slide img{height:100%}
+ .signature{width:110px;margin-top:12px}
+ .t-shirts-page{height:auto;min-height:100dvh;overflow:auto}
+ .t-shirts-page .gallery{position:static;display:block;margin:0 20px 28px}
+ .t-shirts-page .carousel{width:100%}
+}
+
+.carousel .slides{touch-action:pan-y pinch-zoom}
+@media(max-width:700px){
+ .back{display:none}
+ .project-info{margin-top:24px}
+ .carousel-controls button{display:none}
+ .carousel-controls{justify-content:center}
+ .t-shirts-page{height:100dvh;min-height:0;overflow:hidden}
+ .t-shirts-page main{height:100%;display:flex;flex-direction:column;padding:24px 20px max(18px,env(safe-area-inset-bottom))}
+ .t-shirts-page .project-info{margin:0 0 20px;flex:none}
+ .t-shirts-page h1{margin-bottom:20px}
+ .t-shirts-page .meta{margin-top:18px;padding-top:14px}
+ .t-shirts-page .gallery{margin:0;min-height:0;flex:1;display:flex;align-items:center;justify-content:center}
+ .t-shirts-page .carousel{height:100%;display:flex;flex-direction:column;align-items:center;min-height:0}
+ .t-shirts-page .slides{width:100%;flex:1;min-height:0;aspect-ratio:auto}
+ .t-shirts-page .carousel-controls{flex:none}
+}
+
+/* The first AIO exports include white side margins; crop those, not the design. */
+.aio-overview img{object-fit:cover}
+@media(max-width:700px){
+ .gallery figure.aio-overview{aspect-ratio:var(--ratio);overflow:hidden}
+ .gallery figure.aio-overview img{height:100%;object-fit:cover}
+}

@@ -1,0 +1,94 @@
+.t-shirts-page .project-info{container-type:inline-size;overflow:visible}
+.t-shirts-page h1{font-size:min(calc(50 * var(--unit)),18cqw)}
+.t-shirts-page .meta>div{min-width:0}
+.t-shirts-page .meta dd{white-space:normal;overflow-wrap:anywhere}
+.t-shirts-page .gallery{left:calc(440 * var(--unit));right:max(96px,calc(70 * var(--unit)));bottom:56px}
+.shirt-viewer{width:100%;height:100%;min-height:0;display:flex;flex-direction:column}
+.turntable-stage{flex:1;min-height:0;position:relative;container-type:size;overflow:hidden}
+.turntable-crop{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(76.5cqw,66.3864cqh);aspect-ratio:1024/1180;overflow:hidden}
+.turntable-crop img{position:absolute;left:0;top:0;width:100%;height:auto;object-fit:contain}
+.turntable-crop img[hidden]{display:none}
+.turntable-frame{position:absolute;inset:0}
+.turntable-frame[hidden]{display:none}
+/* Reuse the approved ring-free body at each angle; only the shirt changes. */
+.shirt-artwork{pointer-events:none}
+.shirt-artwork-0{clip-path:polygon(42% 19%,59% 19%,70% 22%,85.35% 43.03%,78.13% 45.57%,71.29% 45.9%,71.39% 65.76%,29.3% 65.76%,28.13% 45.9%,21.09% 45.64%,13.67% 43.03%,28.13% 22.27%)}
+.shirt-artwork-1{clip-path:polygon(42% 16.3%,59% 19.34%,68.36% 23.44%,78.42% 44.34%,72.46% 46.68%,67.97% 47.53%,71.88% 65.76%,39.55% 65.76%,35.55% 47.2%,26.46% 43.82%,19.53% 42.38%,30.66% 22.79%)}
+.shirt-artwork-2{clip-path:polygon(39.16% 17.58%,52.25% 16.8%,67.29% 21.16%,77.15% 41.6%,69.92% 44.01%,62.3% 46.88%,68.16% 65.56%,32.03% 65.56%,30.66% 47.01%,23.34% 45.18%,19.53% 43.03%,29.1% 21.81%)}
+.shirt-artwork-3{clip-path:polygon(40.92% 17.58%,59.08% 17.58%,69.82% 20.51%,86.72% 42.9%,78.22% 45.77%,71.29% 47.53%,71.78% 67.45%,28.22% 67.45%,27.05% 47.46%,19.63% 45.44%,12.6% 42.97%,27.34% 20.64%)}
+.shirt-artwork-4{clip-path:polygon(45.21% 17.32%,60.55% 17.9%,71.78% 22.33%,82.52% 42.71%,77.05% 44.99%,72.66% 45.96%,72.75% 66.28%,30.86% 66.28%,31.64% 47.14%,27.25% 44.66%,20.51% 42.51%,31.15% 22.59%)}
+.shirt-artwork-5{clip-path:polygon(43.46% 18.49%,56.15% 18.1%,68.16% 22.07%,80.86% 42.32%,75.39% 44.6%,66.6% 47.01%,63.18% 66.15%,29.69% 66.15%,32.03% 46.88%,27.54% 45.05%,22.46% 42.32%,33.69% 22.79%)}
+.turntable-controls{display:flex;justify-content:center;gap:24px;padding:12px 0 4px;flex:none}
+.turntable-controls button{font:inherit;font-size:13px;color:#f4f4ef;background:none;border:0;padding:4px 0;cursor:pointer}
+.turntable-controls button:hover,.turntable-controls button[aria-pressed=true]{color:#929292}
+.turntable-controls button:focus-visible{outline:1px solid #929292;outline-offset:4px}
+.turntable-controls{justify-content:center;align-items:center;width:85%;align-self:center}
+.turntable-views{display:flex;gap:10px}
+.turntable-controls button[data-turn-pause]{width:42px;min-width:42px;height:42px;padding:0;display:grid;place-items:center}
+.turntable-controls button[data-turn-pause] svg{width:20px;height:20px;fill:currentColor}
+.shirt-navigation{width:85%;align-self:center;display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:12px;flex:none;font-size:13px;color:#aaa}
+.shirt-navigation-start,.shirt-navigation-end{display:flex;align-items:center;gap:12px;min-width:0}
+.shirt-navigation button{width:42px;height:42px;padding:0;border:0;background:none;box-shadow:none;color:#f4f4ef;font:20px/1 Victor,monospace;flex:none;cursor:pointer}
+.shirt-navigation button:hover{color:#929292;background:none}
+.shirt-navigation button:disabled{color:#666;cursor:default}
+.shirt-name{min-width:0;overflow-wrap:anywhere}
+.shirt-counter{white-space:nowrap}
+.shirt-footer{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;padding:12px 0 0;flex:none}
+.shirt-footer .shirt-navigation{display:contents}
+.shirt-navigation-start{grid-column:1;grid-row:1;gap:8px}
+.shirt-navigation-end{grid-column:3;grid-row:1;justify-content:flex-end;gap:8px}
+.shirt-footer .turntable-controls{grid-column:2;grid-row:1;width:auto;padding:0;gap:8px}
+.shirt-footer .turntable-views{gap:8px}
+.shirt-footer .shirt-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shirt-footer .shirt-navigation-start,.shirt-footer .shirt-navigation-end{font-size:13px;color:#aaa}
+@media(max-width:700px){
+ .t-shirts-page main{padding-bottom:54px}
+ .t-shirts-page .gallery{left:auto;right:auto}
+ .t-shirts-page h1{font-size:min(clamp(38px,10.5vw,48px),18cqw)}
+ .turntable-controls{padding-top:8px}
+ .shirt-footer{gap:5px}
+ .shirt-footer .turntable-controls,.shirt-footer .turntable-views{gap:4px}
+ .shirt-footer .turntable-views button{min-width:50px;padding:8px 6px;font-size:11px}
+ .shirt-footer .shirt-navigation button{width:24px}
+ .shirt-footer .shirt-navigation-start,.shirt-footer .shirt-navigation-end{gap:4px;font-size:10px}
+}
+
+.shirt-set{position:absolute;inset:0}
+.shirt-set[hidden]{display:none}
+.turntable-stage{touch-action:pan-y}
+@media(max-width:700px){
+ .shirt-footer{margin-right:50px;gap:4px;grid-template-columns:minmax(0,1fr) auto auto}
+ .shirt-footer .turntable-controls button[data-turn-pause]{width:34px;min-width:34px;height:42px}
+ .shirt-footer .turntable-views button{min-width:42px;padding:8px 4px;font-size:10px}
+ .shirt-footer .shirt-navigation button{width:20px}
+}
+
+@media(max-width:700px){.shirt-navigation [data-shirt-prev],.shirt-navigation [data-shirt-next]{display:none}}
+
+/* Keep the existing top edge and extend the proportional figure to the controls. */
+.turntable-crop{
+ top:calc(50cqh - min(44.07715cqw,38.25cqh));
+ height:calc(50cqh + min(44.07715cqw,38.25cqh));
+ width:auto;
+ transform:translateX(-50%);
+}
+
+@media(max-width:700px){
+ .shirt-footer{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:6px}
+ .shirt-footer .turntable-controls{justify-self:center}
+ .shirt-footer .turntable-controls button[data-turn-pause]{width:42px;min-width:42px;height:42px}
+ .turntable-crop{top:calc(50cqh - min(44.07715cqw,38.25cqh) - 24px);height:calc(50cqh + min(44.07715cqw,38.25cqh) + 24px)}
+}
+
+/* Keep the desktop side information close to the central controls. */
+@media(min-width:701px){
+ .shirt-footer{column-gap:24px}
+ .shirt-footer .shirt-navigation-start,.shirt-footer .shirt-navigation-end{
+  display:grid;
+  width:min(100%,calc(15ch + 50px));
+  column-gap:8px;
+ }
+ .shirt-footer .shirt-navigation-start{grid-template-columns:42px minmax(0,1fr);justify-self:end}
+ .shirt-footer .shirt-navigation-end{grid-template-columns:minmax(0,1fr) 42px;justify-self:start}
+ .shirt-footer .shirt-counter{text-align:right}
+}
