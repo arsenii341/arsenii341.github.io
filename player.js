@@ -24,6 +24,54 @@ let duration = 0, scrubbing = false;
 const engine = document.querySelector('.music-engine');
 let widget = null, playing = false, ready = false, hasLoaded = false, generation = 0, loadTimer;
 let pendingAutoplay = false, loadStartedAt = 0;
+let playbackTimer, playbackRetries = 0, lastPlaybackPosition = 0, playbackStartPosition = 0;
+const playbackFeedback = [panel, miniPlayer].map(container => {
+  const box = document.createElement('div');
+  box.className = 'music-feedback';
+  box.hidden = true;
+  box.setAttribute('role', 'status');
+  const message = document.createElement('span');
+  const retry = document.createElement('button');
+  retry.type = 'button';
+  retry.textContent = 'Повторить';
+  retry.addEventListener('click', () => { playbackRetries = 0; loadTrack(true); });
+  const link = document.createElement('a');
+  link.textContent = 'Открыть SoundCloud ↗';
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  box.append(message, retry, link);
+  container.append(box);
+  return { box, message, link };
+});
+function clearPlaybackError() {
+  playbackFeedback.forEach(({ box }) => { box.hidden = true; });
+}
+function showPlaybackError(message) {
+  playbackFeedback.forEach(feedback => {
+    feedback.message.textContent = message;
+    feedback.link.href = tracks[selectedTrack].url;
+    feedback.box.hidden = false;
+  });
+}
+function startPlayback() {
+  clearTimeout(playbackTimer);
+  clearPlaybackError();
+  const current = generation;
+  playbackStartPosition = lastPlaybackPosition;
+  panel.dataset.musicStage = 'starting';
+  playbackTimer = setTimeout(() => {
+    if (current !== generation || lastPlaybackPosition >= playbackStartPosition + 1000) return;
+    if (playbackRetries++ === 0) {
+      loadTrack(true);
+      return;
+    }
+    widget?.pause();
+    setPlaying(false);
+    panel.dataset.musicStage = 'stalled';
+    showPlaybackError('SoundCloud не запустил звук. Повторите запуск или проверьте трек в SoundCloud.');
+  }, 12000);
+  widget.play();
+}
 let sdkPromise;
 const character = document.querySelector('.music-character');
 const characterImage = character.querySelector('img');
@@ -100,6 +148,9 @@ function clock(ms) {
 }
 function resetTrackState() {
   clearTimeout(loadTimer);
+  clearTimeout(playbackTimer);
+  clearPlaybackError();
+  lastPlaybackPosition = 0;
   ready = false;
   duration = 0;
   scrubbing = false;
@@ -120,8 +171,9 @@ function handleWidgetReady() {
   panel.dataset.musicStage = playing ? 'playing' : 'ready';
   panel.dataset.musicLoadMs = String(Date.now() - loadStartedAt);
   note.textContent = playing ? 'Играет' : 'Готов к воспроизведению';
+  const current = generation;
   widget.getDuration(ms => {
-    if (!ready) return;
+    if (!ready || current !== generation) return;
     duration = Number(ms) || 0;
     total.textContent = clock(duration);
     miniDuration.textContent = clock(duration);
@@ -130,7 +182,7 @@ function handleWidgetReady() {
     miniSeek.max = duration;
     miniSeek.disabled = duration <= 0;
   });
-  if (pendingAutoplay) { pendingAutoplay = false; widget.play(); }
+  if (pendingAutoplay) { pendingAutoplay = false; startPlayback(); }
 }
 async function loadTrack(autoplay = false) {
   hasLoaded = true;
@@ -148,46 +200,59 @@ async function loadTrack(autoplay = false) {
     pendingAutoplay = false;
     panel.dataset.musicStage = 'slow';
     note.textContent = 'Не удалось загрузить. Попробуйте снова или откройте SoundCloud.';
+    showPlaybackError('Не удалось подключиться к SoundCloud. Повторите запуск или откройте трек напрямую.');
   }
   loadTimer = setTimeout(() => {
     if (current !== generation || ready) return;
     panel.dataset.musicStage = 'slow';
     note.textContent = 'SoundCloud долго отвечает. Попробуйте включить ещё раз.';
+    showPlaybackError('SoundCloud долго отвечает. Повторите запуск или откройте трек напрямую.');
   }, 18000);
   try {
     await sdk();
     if (current !== generation) return;
-    if (widget) {
-      widget.pause();
-      widget = null;
-      engine.replaceChildren();
+    const options = {
+      auto_play: false, color: '#999999',
+      buying: false, sharing: false, download: false, show_artwork: false, show_comments: false,
+    };
+    const trackUrl = 'https://api.soundcloud.com/tracks/' + tracks[selectedTrack].id;
+    const reuse = Boolean(widget);
+    let player = widget;
+    if (reuse) {
+      player.pause();
+      Object.values(window.SC.Widget.Events).forEach(event => player.unbind(event));
+    } else {
+      const frame = document.createElement('iframe');
+      frame.title = 'SoundCloud audio player';
+      frame.allow = 'autoplay';
+      frame.tabIndex = -1;
+      frame.src = 'https://w.soundcloud.com/player/?' + new URLSearchParams({ url: trackUrl, ...options });
+      engine.append(frame);
+      player = window.SC.Widget(frame);
     }
-    const frame = document.createElement('iframe');
-    frame.title = 'SoundCloud audio player';
-    frame.allow = 'autoplay';
-    frame.tabIndex = -1;
-    frame.src = 'https://w.soundcloud.com/player/?' + new URLSearchParams({
-      url: 'https://api.soundcloud.com/tracks/' + tracks[selectedTrack].id, auto_play: 'false', color: '#999999',
-      buying: 'false', sharing: 'false', download: 'false', show_artwork: 'false', show_comments: 'false',
-    });
-    engine.append(frame);
-    const player = window.SC.Widget(frame);
     widget = player;
-    player.bind(window.SC.Widget.Events.READY, () => {
+    const onReady = () => {
       if (current === generation) handleWidgetReady();
-    });
+    };
+    if (!reuse) player.bind(window.SC.Widget.Events.READY, onReady);
     player.bind(window.SC.Widget.Events.PLAY, () => {
-      if (current !== generation) return;
-      if (!ready) { pendingAutoplay = false; handleWidgetReady(); }
+      if (current !== generation || !ready) return;
       setPlaying(true); note.textContent = 'Играет';
       panel.dataset.musicStage = 'playing';
     });
     player.bind(window.SC.Widget.Events.PAUSE, () => {
       if (current !== generation) return;
-      if (ready) { setPlaying(false); note.textContent = 'На паузе'; panel.dataset.musicStage = 'paused'; }
+      if (ready && panel.dataset.musicStage !== 'starting' && panel.dataset.musicStage !== 'stalled') {
+        setPlaying(false); note.textContent = 'На паузе'; panel.dataset.musicStage = 'paused';
+      }
     });
     player.bind(window.SC.Widget.Events.PLAY_PROGRESS, event => {
-      if (current !== generation) return;
+      if (current !== generation || !ready) return;
+      if (Number(event.currentPosition) >= playbackStartPosition + 1000) {
+        clearTimeout(playbackTimer);
+        clearPlaybackError();
+      }
+      lastPlaybackPosition = Number(event.currentPosition) || 0;
       if (ready && !scrubbing) updatePosition(event.currentPosition);
     });
     player.bind(window.SC.Widget.Events.FINISH, () => {
@@ -197,11 +262,15 @@ async function loadTrack(autoplay = false) {
     player.bind(window.SC.Widget.Events.ERROR, () => {
       if (current !== generation) return;
       clearTimeout(loadTimer);
+      clearTimeout(playbackTimer);
       ready = false;
       setPlaying(false);
       note.textContent = 'Трек не играет. Откройте SoundCloud или выберите другой.';
       panel.dataset.musicStage = 'error';
+      showPlaybackError('SoundCloud не может воспроизвести трек. Выберите другой или откройте SoundCloud.');
     });
+    // Keep the same audio frame across songs and retries instead of resetting its browser permissions.
+    if (reuse) player.load(trackUrl, { ...options, callback: onReady });
   } catch { fail(); }
 }
 function updatePosition(ms) {
@@ -236,13 +305,19 @@ miniSeek.addEventListener('change', () => {
 miniSeek.addEventListener('pointercancel', () => { scrubbing = false; });
 miniSeek.addEventListener('blur', () => { scrubbing = false; });
 function togglePlayback() {
+  playbackRetries = 0;
   if (!ready) {
     if (panel.dataset.musicStage === 'slow' || panel.dataset.musicStage === 'error' || !widget && panel.dataset.musicStage !== 'loading') loadTrack(true);
     else { pendingAutoplay = true; note.textContent = 'Ожидание SoundCloud…'; }
     return;
   }
-  if (playing) widget.pause();
-  else { note.textContent = 'Запуск…'; widget.play(); }
+  if (playing || panel.dataset.musicStage === 'starting') {
+    clearTimeout(playbackTimer);
+    pendingAutoplay = false;
+    panel.dataset.musicStage = 'paused';
+    widget.pause();
+    setPlaying(false);
+  } else { note.textContent = 'Запуск…'; startPlayback(); }
 }
 playButton.addEventListener('click', togglePlayback);
 quickPlay.addEventListener('click', togglePlayback);
@@ -270,6 +345,7 @@ const trackButtons = tracks.map((track, index) => {
   return button;
 });
 function selectTrack(index, autoplay = false) {
+  playbackRetries = 0;
   selectedTrack = (index + tracks.length) % tracks.length;
   const track = tracks[selectedTrack];
   sourceLink.href = track.url;
