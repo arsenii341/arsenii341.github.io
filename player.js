@@ -8,11 +8,11 @@ const miniSeek = document.querySelector('.mini-seek');
 const miniElapsed = document.querySelector('.mini-elapsed');
 const miniDuration = document.querySelector('.mini-duration');
 const tracks = [
+  { title: 'Prayer (Act I & II) (Live)', artist: 'Denis Stelmakh', id: '1481562910', url: 'https://soundcloud.com/denisstelmakh/1-prayer-act-i-ii-live' },
   { title: 'Думай и богатей', artist: 'YASMI', id: '2411554623', url: 'https://soundcloud.com/yasmi-166296910/dumai-i-bogatei' },
   { title: 'Fall', artist: 'Vraell', id: '529178034', url: 'https://soundcloud.com/vraell/vraell-fall' },
   { title: 'Мотивы', artist: 'Ollane, Эндшпиль', id: '2342148719', url: 'https://soundcloud.com/just_musicsc/ollane-motivy-feat-endshpil' },
   { title: 'Космос', artist: 'Ёлка', id: '1150114993', url: 'https://soundcloud.com/velvetmusic/yolka-kosmos' },
-  { title: 'О счастливчик', artist: 'Скриптонит, 104', id: '935021812', url: 'https://soundcloud.com/skryptonite36/o-schastlivchik-feat-104' },
 ];
 const playButton = document.querySelector('.music-play');
 const note = document.createElement('p');
