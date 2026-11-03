@@ -160,7 +160,8 @@
  .bottom-bar #instruction,.bottom-bar .count{display:none}
  .bottom-bar{bottom:54px;height:42px;display:flex;align-items:center;justify-content:center}
  .bottom-bar .controls{position:static;transform:none;margin:0}
- .bottom-bar .controls #spin{width:42px;min-width:42px;height:42px}
+ .bottom-bar .controls #spin{width:42px;min-width:42px;height:42px;padding:0!important}
+ .bottom-bar .controls #spin svg{display:block;flex:none;margin:0;transform:none}
 }
 
 /* Match the outlined navigation controls used across projects. */

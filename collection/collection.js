@@ -149,7 +149,7 @@ function closeWork(){
 }
 $('#close').onclick=closeWork;
 $('#previous-work').onclick=()=>switchWork(-1);$('#next-work').onclick=()=>switchWork(1);
-function setPause(){ const button=$('#spin');button.querySelector('path').setAttribute('d',paused?'M8 5v14l11-7z':'M7 5h4v14H7zM14 5h4v14h-4z');button.setAttribute('aria-label',paused?'Включить вращение':'Остановить вращение');button.setAttribute('aria-pressed',String(paused)) }
+function setPause(){ const button=$('#spin');button.querySelector('path').setAttribute('d',paused?'M8 5v14l11-7z':'M7 5h4v14H7zM13 5h4v14h-4z');button.setAttribute('aria-label',paused?'Включить вращение':'Остановить вращение');button.setAttribute('aria-pressed',String(paused)) }
 $('#spin').onclick=()=>{paused=!paused;setPause()};reduce.addEventListener('change',()=>{paused=reduce.matches;setPause();startPoses()});setPause();
 document.addEventListener('keydown',e=>{
  if(current>=0){

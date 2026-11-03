@@ -12,10 +12,10 @@
     try { await image.decode(); }
     catch { images.delete(url); }
   }
-  async function queue(urls) {
+  async function queue(urls, warm = warmImage) {
     let next = 0;
     async function worker() {
-      while (next < urls.length) await warmImage(urls[next++]);
+      while (next < urls.length) await warm(urls[next++]);
     }
     await Promise.all([worker(), worker(), worker()]);
   }
@@ -34,6 +34,26 @@
       new URL(img.getAttribute('src'), location.origin + '/projects/').href);
     await queue([...new Set(urls)]);
   }
+  async function warmShirts() {
+    const response = await fetch('/projects/t-shirts/', { priority: 'low' });
+    if (!response.ok) return;
+    const doc = new DOMParser().parseFromString(await response.text(), 'text/html');
+    const base = new URL('/projects/t-shirts/', location.origin);
+    const sets = [...doc.querySelectorAll('.shirt-set')];
+    const frameUrls = frame => [...frame.querySelectorAll('img')].flatMap(img => {
+      const urls = [img.getAttribute('src')];
+      const mask = img.getAttribute('style')?.match(/(?:-webkit-)?mask-image:\s*url\(([^)]+)\)/);
+      if (mask) urls.push(mask[1].replace(/["']/g, ''));
+      return urls.filter(Boolean).map(url => new URL(url, base).href);
+    });
+    const frames = sets.flatMap(set => [...set.querySelectorAll('.turntable-frame')]);
+    const first = [...sets[0].querySelectorAll('.turntable-frame')];
+    const next = sets.slice(1).map(set => set.querySelector('.turntable-frame'));
+    const download = async url => { try { const result = await fetch(url, { priority: 'low' }); if (result.ok) await result.blob(); } catch {} };
+    await queue([...new Set(first.flatMap(frameUrls))]);
+    await queue([...new Set(next.flatMap(frameUrls))], download);
+    await queue([...new Set(frames.flatMap(frameUrls))], download);
+  }
   function warmCode() {
     const urls = ['/collection/', '/collection/collection.css?v=20261009-ru',
       '/collection/collection.js?v=20261009-ru',
@@ -46,8 +66,8 @@
   async function start() {
     if (started) return;
     started = true;
-    // Collection first; project previews follow. Do not download all project videos.
-    await Promise.allSettled([warmCollection(), warmCode()]);
+    // Warm the shared shirt frames and first views while visitors browse.
+    await Promise.allSettled([warmCollection(), warmCode(), warmShirts()]);
     await warmProjectPreviews().catch(() => {});
   }
   addEventListener('portfolio-initial-ready', start, { once: true });

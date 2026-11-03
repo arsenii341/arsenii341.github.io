@@ -4,7 +4,7 @@
  const sets=[...viewer.querySelectorAll('.shirt-set')];
  const frames=sets.map(set=>[...set.querySelectorAll('.turntable-frame')]);
  const frameImages=frame=>[...frame.querySelectorAll('img')];
- const decodeFrame=frame=>Promise.all(frameImages(frame).map(image=>image.decode().catch(()=>{})));
+ const decodeFrame=frame=>Promise.all(frameImages(frame).map(image=>{image.loading='eager';return image.decode().catch(()=>{})}));
  const stage=viewer.querySelector('.turntable-stage');
  const pause=viewer.querySelector('[data-turn-pause]');
  const front=viewer.querySelector('[data-turn-front]');
@@ -12,7 +12,7 @@
  const name=viewer.querySelector('.shirt-name');
  const counter=viewer.querySelector('.shirt-counter');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- let shirt=0,current=0,playing=!reduced.matches,timer=null,switching=false;
+ let shirt=0,current=0,playing=!reduced.matches,timer=null,switching=false,initialReady=false;
  function show(index){
   current=(index+frames[shirt].length)%frames[shirt].length;
   frames.forEach(group=>group.forEach((image,i)=>image.hidden=i!==current));
@@ -27,7 +27,7 @@
   pause.setAttribute('aria-label',playing?'Остановить вращение':'Включить вращение');
   pause.setAttribute('aria-pressed',String(!playing));
   if(playing)markView(null);
-  if(playing&&!document.hidden&&!switching)timer=setTimeout(()=>{show(current+1);schedule()},450);
+  if(playing&&initialReady&&!document.hidden&&!switching)timer=setTimeout(()=>{show(current+1);schedule()},450);
  }
  async function changeShirt(direction){
   if(switching||sets.length<2)return;
@@ -62,5 +62,11 @@
  document.addEventListener('visibilitychange',schedule);
  addEventListener('pagehide',()=>clearTimeout(timer));
  markView(null);show(0);schedule();
- Promise.all(frames.flat().map(decodeFrame));
+ // Decode the first turn before rotating; then warm other designs in small batches.
+ Promise.all(frames[0].map(decodeFrame)).then(async()=>{
+  initialReady=true;schedule();
+  const remaining=frames.slice(1).flat();let next=0;
+  async function worker(){while(next<remaining.length)await decodeFrame(remaining[next++])}
+  await Promise.all([worker(),worker()]);
+ });
 })();
