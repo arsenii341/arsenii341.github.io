@@ -9,10 +9,10 @@ const miniElapsed = document.querySelector('.mini-elapsed');
 const miniDuration = document.querySelector('.mini-duration');
 const tracks = [
   { title: 'РИСКИ', artist: 'CAPTOWN, Truwer, Экси, Niman', id: '2415667461', url: 'https://soundcloud.com/truwer/riski' },
-  { title: 'Primavera (Symphonic Version)', artist: 'Imperial Orchestra, Alexander Dulin', id: '2112997698', url: 'https://soundcloud.com/imperialorchestra/primavera-symphonic-version' },
   { title: 'Prayer (Act I & II) (Live)', artist: 'Denis Stelmakh', id: '1481562910', url: 'https://soundcloud.com/denisstelmakh/1-prayer-act-i-ii-live' },
   { title: 'Проверь мой плэя', artist: 'YASMI', id: '1628015703', url: 'https://soundcloud.com/traphata/yasmi-prover-moy-pleya' },
-  { title: 'Случайная', artist: 'Vaarka', id: '2383147623', url: 'https://soundcloud.com/vaarka-sc/sluchajnaya' },
+  { title: 'Думай и богатей', artist: 'YASMI', id: '2411554623', url: 'https://soundcloud.com/yasmi-166296910/dumai-i-bogatei' },
+  { title: 'Fall', artist: 'Vraell', id: '529178034', url: 'https://soundcloud.com/vraell/vraell-fall' },
 ];
 const playButton = document.querySelector('.music-play');
 const note = document.createElement('p');
